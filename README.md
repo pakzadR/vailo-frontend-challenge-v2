@@ -173,10 +173,10 @@ One good landing page. Server Components by default; client components only wher
 
 ## 5. How to submit
 
-1. **Git repo** — do all your work in the GitHub repository we shared with you. **Write meaningful commits** — we read them: small, purposeful commits tell us more than one big "final version".
+1. **Git repo** — Fork this Repository and do all your work in the forked GitHub repository. **Write meaningful commits** — we read them: small, purposeful commits tell us more than one big "final version".
 2. **Branch workflow** — create two branches: `main` and `staging`.
    - Build each feature on its own branch and open a **PR into `staging`**. Once the PR is merged, **delete the feature branch**.
-   - When you're ready to submit, open a **final PR from `staging` to `main`** and mention `@karwan01`.
+   - When you're ready to submit, open a **final PR from `staging` to `main`** and invite me to the repo `@karwan01`.
 3. **`SUBMIT.md`** — a short write-up covering:
    - **How to run the app** — the exact commands to install and start it.
    - **Your architecture** — how the project is structured, and the decisions and trade-offs behind it.
