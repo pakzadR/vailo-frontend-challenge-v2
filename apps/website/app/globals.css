@@ -1,0 +1,36 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Shared brand + surface tokens — mirrors apps/studio so app and site match (RULES §10). */
+@theme {
+  --color-brand-50: oklch(0.97 0.02 300);
+  --color-brand-100: oklch(0.94 0.04 300);
+  --color-brand-300: oklch(0.82 0.1 300);
+  --color-brand-500: oklch(0.62 0.2 300);
+  --color-brand-600: oklch(0.55 0.22 300);
+  --color-brand-700: oklch(0.48 0.2 300);
+
+  --color-background: oklch(0.99 0.003 300);
+  --color-foreground: oklch(0.2 0.02 300);
+  --color-muted: oklch(0.96 0.005 300);
+  --color-muted-foreground: oklch(0.5 0.02 300);
+  --color-card: oklch(1 0 0);
+  --color-border: oklch(0.92 0.006 300);
+  --color-ring: var(--color-brand-500);
+
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+
+.dark {
+  --color-background: oklch(0.19 0.02 295);
+  --color-foreground: oklch(0.96 0.006 300);
+  --color-muted: oklch(0.24 0.02 295);
+  --color-muted-foreground: oklch(0.68 0.02 300);
+  --color-card: oklch(0.23 0.02 295);
+  --color-border: oklch(0.3 0.02 295);
+}
+
+body {
+  @apply bg-background text-foreground antialiased;
+}

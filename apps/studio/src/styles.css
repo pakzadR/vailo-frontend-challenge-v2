@@ -1,0 +1,46 @@
+@import 'tailwindcss';
+
+/* Class-based dark mode (toggled on <html>) instead of media-only. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Theme tokens (RULES §10) — the single source of truth for brand + surface colors.
+ * Components reference these via Tailwind utilities (bg-background, text-foreground, …),
+ * never raw hex. Website mirrors the same palette.
+ */
+@theme {
+  --color-brand-50: oklch(0.97 0.02 300);
+  --color-brand-100: oklch(0.94 0.04 300);
+  --color-brand-300: oklch(0.82 0.1 300);
+  --color-brand-500: oklch(0.62 0.2 300);
+  --color-brand-600: oklch(0.55 0.22 300);
+  --color-brand-700: oklch(0.48 0.2 300);
+
+  --color-background: oklch(0.99 0.003 300);
+  --color-foreground: oklch(0.2 0.02 300);
+  --color-muted: oklch(0.96 0.005 300);
+  --color-muted-foreground: oklch(0.5 0.02 300);
+  --color-card: oklch(1 0 0);
+  --color-border: oklch(0.92 0.006 300);
+  --color-ring: var(--color-brand-500);
+}
+
+/* Dark surface tokens. */
+.dark {
+  --color-background: oklch(0.19 0.02 295);
+  --color-foreground: oklch(0.96 0.006 300);
+  --color-muted: oklch(0.24 0.02 295);
+  --color-muted-foreground: oklch(0.68 0.02 300);
+  --color-card: oklch(0.23 0.02 295);
+  --color-border: oklch(0.3 0.02 295);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  @apply bg-background text-foreground antialiased;
+}

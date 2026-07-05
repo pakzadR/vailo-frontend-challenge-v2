@@ -1,0 +1,35 @@
+# deps
+node_modules
+.pnpm-store
+
+# builds
+dist
+.next
+out
+build
+
+# turbo
+.turbo
+
+# generated
+**/routeTree.gen.ts
+
+# env
+.env
+.env.*
+!.env.example
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# editor / os
+.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea
+
+# misc
+*.tsbuildinfo
+coverage
