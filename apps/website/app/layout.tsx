@@ -1,35 +1,47 @@
 import type { Metadata } from 'next';
+import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 
+const geistSans = Geist({ variable: '--font-geist-sans', subsets: ['latin'], display: 'swap' });
+const geistMono = Geist_Mono({
+  variable: '--font-geist-mono',
+  subsets: ['latin'],
+  display: 'swap',
+});
+
 const description =
-  'Pixa Studio turns a prompt into a picture. Generate images with fine-grained control over model, aspect ratio and seed.';
+  'Pixa Studio turns any prompt into stunning imagery. Generate, iterate and reproduce AI images down to the seed — with fine-grained control over model, aspect ratio and seed.';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://pixa.studio'),
   title: {
-    default: 'Pixa Studio — AI image generation',
-    template: '%s · Pixa Studio',
+    default: 'Pixa — Turn any prompt into stunning imagery',
+    template: '%s · Pixa',
   },
   description,
   openGraph: {
-    title: 'Pixa Studio — AI image generation',
+    title: 'Pixa — Turn any prompt into stunning imagery',
     description,
     type: 'website',
-    siteName: 'Pixa Studio',
+    siteName: 'Pixa',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Pixa Studio — AI image generation',
+    title: 'Pixa — Turn any prompt into stunning imagery',
     description,
   },
 };
 
-// Set theme before first paint — no flash of the wrong theme (RULES §10).
-const themeScript = `(function(){try{var t=localStorage.getItem('pixa-theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.classList.toggle('dark',t==='dark');document.documentElement.style.colorScheme=t;}catch(e){}})();`;
+// Dark is the default; apply the light class before first paint if the user chose it (RULES §10).
+const themeScript = `(function(){try{if(localStorage.getItem('pixa-theme')==='light'){document.documentElement.classList.add('light');}}catch(e){}})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${geistSans.variable} ${geistMono.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>

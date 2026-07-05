@@ -2,6 +2,7 @@ node_modules
 dist
 .next
 .turbo
+.vite
 pnpm-lock.yaml
 **/routeTree.gen.ts
 *.pdf

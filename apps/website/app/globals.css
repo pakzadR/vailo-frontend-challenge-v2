@@ -1,36 +1,115 @@
 @import 'tailwindcss';
 
-@custom-variant dark (&:where(.dark, .dark *));
-
-/* Shared brand + surface tokens — mirrors apps/studio so app and site match (RULES §10). */
+/*
+ * Tailwind v4 config lives in CSS: @theme, @apply and @custom-variant are Tailwind
+ * at-rules processed by @tailwindcss/postcss — not errors (see .vscode/settings.json).
+ *
+ * Pixa design tokens — mirror of the design spec (Pixa Studio.dc.html §00).
+ * Dark is the default theme; `html.light` flips the surface + text tokens.
+ * Shared 1:1 with apps/studio so the app and marketing site match (RULES §10).
+ */
 @theme {
-  --color-brand-50: oklch(0.97 0.02 300);
-  --color-brand-100: oklch(0.94 0.04 300);
-  --color-brand-300: oklch(0.82 0.1 300);
-  --color-brand-500: oklch(0.62 0.2 300);
-  --color-brand-600: oklch(0.55 0.22 300);
-  --color-brand-700: oklch(0.48 0.2 300);
+  /* brand — a warm gold gradient */
+  --color-brand: #e0a83c;
+  --color-brand-soft: rgb(224 168 60 / 0.16);
+  --color-brand-fg: #f0d38a;
+  --color-brand-from: #f7cd5a;
+  --color-brand-to: #dd9327;
+  /* text placed ON the gold gradient (buttons, badges) — same in both themes */
+  --color-brand-ink: #1a1206;
 
-  --color-background: oklch(0.99 0.003 300);
-  --color-foreground: oklch(0.2 0.02 300);
-  --color-muted: oklch(0.96 0.005 300);
-  --color-muted-foreground: oklch(0.5 0.02 300);
-  --color-card: oklch(1 0 0);
-  --color-border: oklch(0.92 0.006 300);
-  --color-ring: var(--color-brand-500);
+  /* surfaces (dark defaults) */
+  --color-background: #08080a;
+  --color-surface: #0b0b0d;
+  --color-surface-deep: #0a0a0c;
+  --color-input: #131316;
+  --color-elevated: #0e0e11;
 
-  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  /* text + border */
+  --color-foreground: #f4f4f5;
+  --color-muted: #a1a1aa;
+  --color-subtle: #71717a;
+  --color-border: rgb(255 255 255 / 0.08);
+  --color-hairline: rgb(255 255 255 / 0.06);
+
+  /* status */
+  --color-success: #4ade80;
+  --color-error: #f87171;
+  --color-warning: #fbbf24;
+  --color-info: #38bdf8;
+
+  /* type */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, 'Geist Mono', monospace;
 }
 
-.dark {
-  --color-background: oklch(0.19 0.02 295);
-  --color-foreground: oklch(0.96 0.006 300);
-  --color-muted: oklch(0.24 0.02 295);
-  --color-muted-foreground: oklch(0.68 0.02 300);
-  --color-card: oklch(0.23 0.02 295);
-  --color-border: oklch(0.3 0.02 295);
+/* Light mode overrides (RULES §10 — same utilities, different values). */
+html.light {
+  --color-brand: #c98a1f;
+  --color-brand-soft: rgb(201 138 31 / 0.14);
+  --color-brand-fg: #8a5e12;
+
+  --color-background: #fafafa;
+  --color-surface: #ffffff;
+  --color-surface-deep: #f4f4f5;
+  --color-input: #f4f4f5;
+  --color-elevated: #f7f7f8;
+
+  --color-foreground: #18181b;
+  --color-muted: #52525b;
+  --color-subtle: #a1a1aa;
+  --color-border: rgb(0 0 0 / 0.1);
+  --color-hairline: rgb(0 0 0 / 0.06);
+
+  --color-success: #16a34a;
+  --color-error: #dc2626;
+  --color-warning: #d97706;
+  --color-info: #0284c7;
+}
+
+html {
+  color-scheme: dark;
+}
+html.light {
+  color-scheme: light;
+}
+
+/* Smooth anchor scrolling — but respect users who prefer reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 body {
   @apply bg-background text-foreground antialiased;
+}
+
+/*
+ * Tailwind v4 preflight leaves buttons with `cursor: default`.
+ * Anything clickable should read as clickable — one rule, app-wide.
+ */
+button:not(:disabled),
+[role='button']:not(:disabled) {
+  cursor: pointer;
+}
+
+/* Reusable brand treatments (kept as tokens, not scattered hex). */
+.bg-gradient-brand {
+  background-image: linear-gradient(135deg, var(--color-brand-from), var(--color-brand-to));
+}
+.text-gradient-brand {
+  background-image: linear-gradient(120deg, var(--color-brand-from), var(--color-brand-to));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.text-gradient-heading {
+  background-image: linear-gradient(180deg, #ffffff 30%, #8b8b93);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+html.light .text-gradient-heading {
+  background-image: linear-gradient(180deg, #18181b 30%, #71717a);
 }
