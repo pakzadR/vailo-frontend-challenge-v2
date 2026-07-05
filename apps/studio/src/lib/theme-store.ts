@@ -5,14 +5,13 @@ export type Theme = 'light' | 'dark';
 const STORAGE_KEY = 'pixa-theme';
 
 function readInitialTheme(): Theme {
-  if (typeof document === 'undefined') return 'light';
-  return document.documentElement.classList.contains('dark') ? 'dark' : 'light';
+  if (typeof document === 'undefined') return 'dark';
+  return document.documentElement.classList.contains('light') ? 'light' : 'dark';
 }
 
 function apply(theme: Theme) {
-  const root = document.documentElement;
-  root.classList.toggle('dark', theme === 'dark');
-  root.style.colorScheme = theme;
+  // Dark is the default (no class); the `light` class flips the tokens.
+  document.documentElement.classList.toggle('light', theme === 'light');
   localStorage.setItem(STORAGE_KEY, theme);
 }
 

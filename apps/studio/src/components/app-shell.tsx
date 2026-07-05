@@ -13,21 +13,19 @@ export function AppShell({ children }: { children: ReactNode }) {
 
   return (
     <div className="flex h-full">
-      <aside className="flex w-16 shrink-0 flex-col items-center gap-2 border-r border-border bg-card py-4">
-        <div className="mb-4 grid size-9 place-items-center rounded-lg bg-brand-600 font-bold text-white">
-          P
+      <aside className="flex w-[60px] shrink-0 flex-col items-center gap-5 border-r border-hairline bg-elevated py-4">
+        <div className="grid size-8 place-items-center rounded-[9px] bg-gradient-brand text-[15px] font-bold text-brand-ink">
+          ✦
         </div>
 
-        <nav className="flex flex-1 flex-col gap-1">
+        <nav className="flex flex-1 flex-col gap-1.5">
           {NAV.map((item) => (
             <Link
               key={item.to}
               to={item.to}
-              className="grid size-10 place-items-center rounded-lg text-lg transition-colors"
-              activeProps={{ className: 'bg-brand-600 text-white' }}
-              inactiveProps={{
-                className: 'text-muted-foreground hover:bg-muted hover:text-foreground',
-              }}
+              className="grid size-10 place-items-center rounded-[10px] text-lg transition-colors"
+              activeProps={{ className: 'bg-brand-soft text-brand-fg' }}
+              inactiveProps={{ className: 'text-subtle hover:bg-input hover:text-foreground' }}
               title={item.label}
             >
               <span aria-hidden>{item.icon}</span>
@@ -39,7 +37,7 @@ export function AppShell({ children }: { children: ReactNode }) {
         <button
           type="button"
           onClick={toggle}
-          className="grid size-10 place-items-center rounded-lg text-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          className="grid size-10 place-items-center rounded-[10px] text-lg text-muted transition-colors hover:bg-input hover:text-foreground"
           title="Toggle theme"
           aria-label="Toggle theme"
         >
