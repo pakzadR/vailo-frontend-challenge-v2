@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { PollinationsImage } from './pollinations-image';
+import { PollinationsImage } from '@/components/ui/pollinations-image';
 import { fetchImageDataUri } from '@/lib/pollinations';
 import { DEMO_IMAGES } from '@/lib/site-data';
 

@@ -1,5 +1,5 @@
-import { ArrowRightIcon, PlayIcon } from './icons';
-import { PollinationsImage } from './pollinations-image';
+import { ArrowRightIcon, PlayIcon } from '@/components/ui/icons';
+import { PollinationsImage } from '@/components/ui/pollinations-image';
 import { STUDIO_URL } from '@/lib/site-data';
 
 export function SiteHero() {

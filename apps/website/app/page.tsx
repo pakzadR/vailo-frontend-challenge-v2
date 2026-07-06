@@ -1,10 +1,10 @@
-import { SiteNav } from '@/components/site-nav';
-import { SiteHero } from '@/components/site-hero';
-import { TemplatesSection } from '@/components/templates-section';
-import { FeaturesSection } from '@/components/features-section';
-import { LiveDemoSection } from '@/components/live-demo-section';
-import { PricingSection } from '@/components/pricing-section';
-import { SiteFooter } from '@/components/site-footer';
+import { SiteNav } from '@/components/sections/nav';
+import { SiteHero } from '@/components/sections/hero';
+import { TemplatesSection } from '@/components/sections/templates';
+import { FeaturesSection } from '@/components/sections/features';
+import { LiveDemoSection } from '@/components/sections/live-demo';
+import { PricingSection } from '@/components/sections/pricing';
+import { SiteFooter } from '@/components/sections/footer';
 
 export default function HomePage() {
   return (

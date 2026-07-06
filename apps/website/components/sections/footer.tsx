@@ -1,4 +1,4 @@
-import { SparkleIcon } from './icons';
+import { SparkleIcon } from '@/components/ui/icons';
 
 const FOOTER_LINKS = ['Privacy', 'Terms', 'GitHub', 'Twitter'];
 

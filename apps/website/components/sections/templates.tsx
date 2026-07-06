@@ -1,8 +1,8 @@
 'use client';
 
 import { useState } from 'react';
-import { ArrowRightIcon } from './icons';
-import { PollinationsImage } from './pollinations-image';
+import { ArrowRightIcon } from '@/components/ui/icons';
+import { PollinationsImage } from '@/components/ui/pollinations-image';
 import { STUDIO_URL, TEMPLATE_FILTERS, TEMPLATES, type TemplateFilter } from '@/lib/site-data';
 
 /**

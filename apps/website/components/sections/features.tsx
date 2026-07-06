@@ -1,4 +1,4 @@
-import { FeatureIcon } from './icons';
+import { FeatureIcon } from '@/components/ui/icons';
 import { FEATURES } from '@/lib/site-data';
 
 export function FeaturesSection() {

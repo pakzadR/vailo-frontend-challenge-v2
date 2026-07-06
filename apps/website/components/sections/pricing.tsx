@@ -1,4 +1,4 @@
-import { CheckIcon } from './icons';
+import { CheckIcon } from '@/components/ui/icons';
 import { PRICING } from '@/lib/site-data';
 
 export function PricingSection() {
