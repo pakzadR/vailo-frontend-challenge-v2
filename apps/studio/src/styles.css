@@ -84,3 +84,26 @@ button:not(:disabled),
 .bg-gradient-brand {
   background-image: linear-gradient(135deg, var(--color-brand-from), var(--color-brand-to));
 }
+
+/* Loading affordances from the design spec (§01 pending thumbnail). */
+@keyframes pixa-shimmer {
+  0% {
+    background-position: -400px 0;
+  }
+  100% {
+    background-position: 400px 0;
+  }
+}
+.animate-shimmer {
+  background-image: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.05), transparent);
+  background-size: 400px 100%;
+  animation: pixa-shimmer 1.4s infinite linear;
+}
+html.light .animate-shimmer {
+  background-image: linear-gradient(90deg, transparent, rgb(0 0 0 / 0.05), transparent);
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-shimmer {
+    animation: none;
+  }
+}

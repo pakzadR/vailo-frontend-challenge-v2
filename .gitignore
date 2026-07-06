@@ -36,3 +36,4 @@ pnpm-debug.log*
 *.tsbuildinfo
 coverage
 .vscode
+graphify-out

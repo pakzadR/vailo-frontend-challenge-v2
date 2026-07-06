@@ -1,51 +1,72 @@
-import type { ReactNode } from 'react';
+import type { ComponentType, ReactNode } from 'react';
 import { Link } from '@tanstack/react-router';
+import { GridIcon, MoonIcon, SparkleIcon, SunIcon, WandIcon } from '@/components/icons';
+import { Tooltip } from '@/components/tooltip';
 import { useThemeStore } from '@/lib/theme-store';
 
-const NAV = [
-  { to: '/workspace', label: 'Workspace', icon: '✦' },
-  { to: '/templates', label: 'Templates', icon: '▦' },
-] as const;
+const NAV: Array<{
+  to: '/workspace' | '/templates';
+  label: string;
+  Icon: ComponentType<{ size?: number }>;
+}> = [
+  { to: '/workspace', label: 'Workspace', Icon: WandIcon },
+  { to: '/templates', label: 'Templates', Icon: GridIcon },
+];
 
+/** Icon rail (design §01): logo, nav with tooltips, theme toggle, avatar. */
 export function AppShell({ children }: { children: ReactNode }) {
   const theme = useThemeStore((s) => s.theme);
   const toggle = useThemeStore((s) => s.toggle);
 
   return (
     <div className="flex h-full">
-      <aside className="flex w-[60px] shrink-0 flex-col items-center gap-5 border-r border-hairline bg-elevated py-4">
-        <div className="grid size-8 place-items-center rounded-[9px] bg-gradient-brand text-[15px] font-bold text-brand-ink">
-          ✦
+      <aside className="flex w-[60px] shrink-0 flex-col items-center border-r border-hairline bg-elevated py-4">
+        <div className="grid size-8 place-items-center rounded-[9px] bg-gradient-brand text-brand-ink">
+          <SparkleIcon size={16} />
         </div>
 
-        <nav className="flex flex-1 flex-col gap-1.5">
-          {NAV.map((item) => (
-            <Link
-              key={item.to}
-              to={item.to}
-              className="grid size-10 place-items-center rounded-[10px] text-lg transition-colors"
-              activeProps={{ className: 'bg-brand-soft text-brand-fg' }}
-              inactiveProps={{ className: 'text-subtle hover:bg-input hover:text-foreground' }}
-              title={item.label}
-            >
-              <span aria-hidden>{item.icon}</span>
-              <span className="sr-only">{item.label}</span>
-            </Link>
+        <nav className="mt-7 flex flex-1 flex-col items-center gap-1.5">
+          {NAV.map(({ to, label, Icon }) => (
+            <Tooltip key={to} label={label} side="right">
+              <Link
+                to={to}
+                className="grid size-10 place-items-center rounded-[10px] transition-colors"
+                activeProps={{
+                  className: 'border border-brand/35 bg-brand-soft text-brand-fg',
+                }}
+                inactiveProps={{
+                  className: 'text-subtle hover:bg-input hover:text-foreground',
+                }}
+              >
+                <Icon size={19} />
+                <span className="sr-only">{label}</span>
+              </Link>
+            </Tooltip>
           ))}
         </nav>
 
-        <button
-          type="button"
-          onClick={toggle}
-          className="grid size-10 place-items-center rounded-[10px] text-lg text-muted transition-colors hover:bg-input hover:text-foreground"
-          title="Toggle theme"
-          aria-label="Toggle theme"
-        >
-          {theme === 'dark' ? '☀' : '☾'}
-        </button>
+        <div className="flex flex-col items-center gap-3.5">
+          <Tooltip
+            label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+            side="right"
+          >
+            <button
+              type="button"
+              onClick={toggle}
+              aria-label="Toggle theme"
+              className="grid size-10 place-items-center rounded-[10px] text-muted transition-colors hover:bg-input hover:text-foreground"
+            >
+              {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
+            </button>
+          </Tooltip>
+          <div
+            aria-hidden
+            className="size-7 rounded-full border border-border bg-[linear-gradient(135deg,#334155,#0f172a)]"
+          />
+        </div>
       </aside>
 
-      <main className="min-w-0 flex-1 overflow-auto">{children}</main>
+      <main className="min-w-0 flex-1 overflow-hidden">{children}</main>
     </div>
   );
 }
