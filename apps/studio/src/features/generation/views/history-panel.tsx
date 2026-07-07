@@ -2,11 +2,7 @@ import { TrashIcon } from '@/components/icons';
 import { Tooltip } from '@/components/tooltip';
 import { seedGradient } from './gradients';
 
-/**
- * Design-only history panel (design §01): the four mock entries from the
- * spec. Real persistence (Zustand + localStorage) and the detail dialog
- * arrive in the history feature PR.
- */
+// Static history mock; persistence + detail dialog come later.
 const MOCK_ENTRIES = [
   {
     id: 'a',

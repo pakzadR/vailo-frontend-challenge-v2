@@ -7,7 +7,7 @@ import { pollinationsUrl, type PixaModel } from '@/lib/pollinations';
 interface PollinationsImageProps {
   prompt: string;
   seed: number;
-  /** Always-visible backdrop — shows while the image loads and if it ever fails. */
+  /** Shown while loading and on failure. */
   gradient: string;
   alt: string;
   width?: number;
@@ -18,13 +18,10 @@ interface PollinationsImageProps {
 }
 
 /**
- * Renders a Pollinations image directly in the browser (`unoptimized`), on purpose:
- * generation takes 5–45s, which blows past Next's image-optimizer fetch timeout and
- * would leave a blank slot. A plain <img> load carries no Origin header (README gotcha
- * #1) and can wait as long as it needs. The gradient sits underneath so the slot is
- * never empty, and a failed load simply keeps the gradient instead of a broken icon.
- *
- * Parent must be `position: relative` with a defined size (the image uses `fill`).
+ * Deliberately `unoptimized`: Pollinations takes 5–45s, past the Next
+ * optimizer's timeout, and plain <img> loads send no Origin header (which it
+ * 403s on). The gradient underneath covers loading and failure states.
+ * Parent must be `position: relative` with a size (the image uses `fill`).
  */
 export function PollinationsImage({
   prompt,

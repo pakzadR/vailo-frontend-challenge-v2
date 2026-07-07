@@ -18,7 +18,6 @@ function base({ size = 20, ...props }: IconProps) {
   };
 }
 
-/** The Pixa mark — a four-point sparkle. */
 export function SparkleIcon({ size = 20, ...props }: IconProps) {
   return (
     <svg {...base({ size, strokeWidth: 2, ...props })}>

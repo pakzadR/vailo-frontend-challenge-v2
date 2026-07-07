@@ -4,10 +4,8 @@ import { fetchImageDataUri } from '@/lib/pollinations';
 import { DEMO_IMAGES } from '@/lib/site-data';
 
 /**
- * Live demo strip (RULES §9) — an async Server Component. Each image is fetched from
- * Pollinations on the server (Node → no Origin header → never 403'd) and inlined as a
- * data URI, so the strip is rendered from server-fetched data and is always populated.
- * If a server fetch times out, we fall back to loading that one image in the browser.
+ * Async RSC: images are fetched server-side and inlined as data URIs; a
+ * timed-out fetch falls back to loading that image in the browser.
  */
 export async function LiveDemoSection() {
   const demos = await Promise.all(

@@ -1,9 +1,4 @@
-/**
- * Deterministic decorative gradient for history thumbnails. History entries
- * deliberately do NOT reload their images (a stale entry would occupy the
- * bounded Pollinations queue and starve live generations); a seed-derived
- * gradient gives each entry a stable, recognizable swatch instead.
- */
+// Deterministic gradient per seed — history thumbs never re-download images.
 const PALETTES = [
   ['#ec4899', '#22d3ee', '#160a2e'],
   ['#fbbf24', '#f97316', '#2a1206'],

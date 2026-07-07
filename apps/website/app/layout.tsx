@@ -32,7 +32,7 @@ export const metadata: Metadata = {
   },
 };
 
-// Dark is the default; apply the light class before first paint if the user chose it (RULES §10).
+// apply stored theme before first paint
 const themeScript = `(function(){try{if(localStorage.getItem('pixa-theme')==='light'){document.documentElement.classList.add('light');}}catch(e){}})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

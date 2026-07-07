@@ -16,10 +16,8 @@ export type TemplateCategory = Exclude<TemplateFilter, 'All'>;
 export interface TemplateCard {
   id: string;
   label: string;
-  /** Prompt + seed used to render the deterministic preview image. */
   prompt: string;
   seed: number;
-  /** Backdrop shown while the preview loads (and if it ever fails). */
   gradient: string;
   category: TemplateCategory;
 }
@@ -127,7 +125,6 @@ export const FEATURES: Feature[] = [
   },
 ];
 
-/** Live demo strip — real, deterministic images fetched server-side (RULES §9). */
 export interface DemoImage {
   prompt: string;
   caption: string;

@@ -16,7 +16,6 @@ function base({ size = 18, ...props }: IconProps) {
   };
 }
 
-/** The Pixa mark — four-point sparkle (logo + generate button). */
 export function SparkleIcon({ size = 18, ...props }: IconProps) {
   return (
     <svg {...base({ size, strokeWidth: 2, ...props })}>
@@ -25,7 +24,6 @@ export function SparkleIcon({ size = 18, ...props }: IconProps) {
   );
 }
 
-/** Magic wand — workspace nav (per design §01 icon rail). */
 export function WandIcon({ size = 18, ...props }: IconProps) {
   return (
     <svg {...base({ size, ...props })}>
@@ -62,7 +60,6 @@ export function SunIcon({ size = 18, ...props }: IconProps) {
   );
 }
 
-/** Shuffle arrows — seed randomize (per design §01). */
 export function ShuffleIcon({ size = 16, ...props }: IconProps) {
   return (
     <svg {...base({ size, ...props })}>

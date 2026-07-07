@@ -1,16 +1,13 @@
 @import 'tailwindcss';
 
-/*
- * Pixa design tokens — shared 1:1 with apps/website (design spec §00).
- * Dark is the default theme; `html.light` flips surface + text tokens (RULES §10).
- */
+/* Pixa tokens — shared with apps/website. Dark default; html.light flips. */
 @theme {
   --color-brand: #e0a83c;
   --color-brand-soft: rgb(224 168 60 / 0.16);
   --color-brand-fg: #f0d38a;
   --color-brand-from: #f7cd5a;
   --color-brand-to: #dd9327;
-  /* text placed ON the gold gradient (buttons, badges) — same in both themes */
+  /* text on the gold gradient */
   --color-brand-ink: #1a1206;
 
   --color-background: #08080a;
@@ -72,10 +69,7 @@ body {
   @apply bg-background text-foreground font-sans antialiased;
 }
 
-/*
- * Tailwind v4 preflight leaves buttons with `cursor: default`.
- * Anything clickable should read as clickable — one rule, app-wide.
- */
+/* Tailwind v4 preflight leaves buttons cursor:default */
 button:not(:disabled),
 [role='button']:not(:disabled) {
   cursor: pointer;
@@ -85,7 +79,7 @@ button:not(:disabled),
   background-image: linear-gradient(135deg, var(--color-brand-from), var(--color-brand-to));
 }
 
-/* Loading affordances from the design spec (§01 pending thumbnail). */
+/* loading shimmer */
 @keyframes pixa-shimmer {
   0% {
     background-position: -400px 0;

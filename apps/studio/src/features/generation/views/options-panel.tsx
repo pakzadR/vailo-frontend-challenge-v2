@@ -17,11 +17,6 @@ interface OptionsPanelProps {
   onChange: (patch: Partial<GenerationOptions>) => void;
 }
 
-/**
- * Left controls panel (design §01), design-only stage: every control is
- * styled and locally interactive; the generate action itself arrives with
- * the generation feature PR.
- */
 export function OptionsPanel({ options, onChange }: OptionsPanelProps) {
   const dims = ASPECT_DIMENSIONS[options.aspect];
 
@@ -35,7 +30,6 @@ export function OptionsPanel({ options, onChange }: OptionsPanelProps) {
       </header>
 
       <div className="flex flex-1 flex-col gap-5 overflow-y-auto p-5">
-        {/* Prompt */}
         <div>
           <div className="mb-2 flex items-center justify-between">
             <label htmlFor="prompt" className="text-[12.5px] font-medium text-foreground/85">
@@ -48,8 +42,7 @@ export function OptionsPanel({ options, onChange }: OptionsPanelProps) {
             value={options.prompt}
             onChange={(e) => onChange({ prompt: e.target.value })}
             onKeyDown={(e) => {
-              // Enter will submit, Shift+Enter inserts a newline (RULES §5) —
-              // the submit action itself lands with the generation feature.
+              // Enter is reserved for generate; Shift+Enter inserts a newline
               if (e.key === 'Enter' && !e.shiftKey) e.preventDefault();
             }}
             placeholder="A bioluminescent jellyfish drifting through a neon cyberpunk city…"
@@ -58,7 +51,6 @@ export function OptionsPanel({ options, onChange }: OptionsPanelProps) {
           />
         </div>
 
-        {/* Model */}
         <div>
           <div className="mb-2 flex items-center gap-1.5">
             <span className="text-[12.5px] font-medium text-foreground/85">Model</span>
@@ -116,7 +108,6 @@ export function OptionsPanel({ options, onChange }: OptionsPanelProps) {
           </Select.Root>
         </div>
 
-        {/* Aspect ratio */}
         <div>
           <div className="mb-2 text-[12.5px] font-medium text-foreground/85">Aspect ratio</div>
           <ToggleGroup.Root
@@ -143,7 +134,6 @@ export function OptionsPanel({ options, onChange }: OptionsPanelProps) {
           </p>
         </div>
 
-        {/* Seed */}
         <div>
           <div className="mb-2 flex items-center gap-1.5">
             <label htmlFor="seed" className="text-[12.5px] font-medium text-foreground/85">
@@ -180,7 +170,6 @@ export function OptionsPanel({ options, onChange }: OptionsPanelProps) {
           </div>
         </div>
 
-        {/* Image count */}
         <div>
           <div className="mb-3 flex items-center justify-between">
             <span className="text-[12.5px] font-medium text-foreground/85">Images</span>

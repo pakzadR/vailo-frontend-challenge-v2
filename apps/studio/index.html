@@ -12,7 +12,7 @@
       rel="stylesheet"
     />
     <script>
-      // Dark is the default; apply the light class before first paint if chosen (RULES §10).
+      // apply stored theme before first paint
       (function () {
         try {
           if (localStorage.getItem('pixa-theme') === 'light') {

@@ -21,11 +21,7 @@ interface ThemeState {
   setTheme: (theme: Theme) => void;
 }
 
-/**
- * App-level UI state (RULES §3 — Zustand where a store earns it). The initial
- * value is read from the DOM, which the inline script in index.html sets before
- * first paint, so there is no flash of the wrong theme.
- */
+// Initial value comes from the DOM class set by index.html before first paint.
 export const useThemeStore = create<ThemeState>((set) => ({
   theme: readInitialTheme(),
   toggle: () =>

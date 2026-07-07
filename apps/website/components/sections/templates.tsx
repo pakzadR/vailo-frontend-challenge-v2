@@ -5,10 +5,7 @@ import { ArrowRightIcon } from '@/components/ui/icons';
 import { PollinationsImage } from '@/components/ui/pollinations-image';
 import { STUDIO_URL, TEMPLATE_FILTERS, TEMPLATES, type TemplateFilter } from '@/lib/site-data';
 
-/**
- * Client component by necessity (RULES §9 — "client components only where
- * interaction demands it"): the category filter is real, stateful filtering.
- */
+/** Client component — the category filter is stateful. */
 export function TemplatesSection() {
   const [filter, setFilter] = useState<TemplateFilter>('All');
   const visible = filter === 'All' ? TEMPLATES : TEMPLATES.filter((t) => t.category === filter);
@@ -65,14 +62,8 @@ export function TemplatesSection() {
               alt={tpl.label}
               gradient={tpl.gradient}
             />
-            {/* Scrim only darkens the bottom ~55% (per the design) so the artwork
-                stays clean above. rgba is justified here: it's an overlay on a
-                photo — always a dark context, independent of the theme. */}
             <div className="absolute inset-0 z-10 flex flex-col items-start justify-end bg-[linear-gradient(0deg,rgba(0,0,0,0.75),transparent_55%)] p-3.5">
-              {/* Cards rest shifted down by the CTA's height (~39px) so the label
-                  sits flush at the bottom edge; hovering slides the block up to
-                  reveal the CTA. Touch devices (no hover) and keyboard focus
-                  always show it (RULES §8). */}
+              {/* rests shifted down by the CTA height; hover/focus/touch reveals it */}
               <div className="flex translate-y-[39px] flex-col items-start transition-transform duration-300 group-focus-within:translate-y-0 group-hover:translate-y-0 motion-reduce:transition-none [@media(hover:none)]:translate-y-0">
                 <p className="mb-2.5 line-clamp-2 text-left text-[11.5px] leading-snug text-white/95">
                   {tpl.label}

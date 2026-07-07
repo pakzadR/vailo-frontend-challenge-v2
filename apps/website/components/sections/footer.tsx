@@ -6,7 +6,6 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-hairline px-6 py-10 sm:px-12">
       <div className="mx-auto flex max-w-[1440px] flex-col items-center justify-between gap-4 sm:flex-row">
-        {/* Same lockup as the header, scaled down. */}
         <div className="flex items-center gap-2.5">
           <span className="grid size-6 place-items-center rounded-[7px] bg-gradient-brand text-brand-ink">
             <SparkleIcon size={12} />

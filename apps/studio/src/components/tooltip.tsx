@@ -1,10 +1,6 @@
 import type { ReactNode } from 'react';
 import * as RadixTooltip from '@radix-ui/react-tooltip';
 
-/**
- * App-wide tooltip wrapper (RULES §5 — Radix Tooltip on every non-obvious
- * control). Rendered inside the single TooltipProvider mounted in __root.
- */
 export function Tooltip({
   label,
   side = 'top',

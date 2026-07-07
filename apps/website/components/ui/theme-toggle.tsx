@@ -3,14 +3,8 @@
 import { MoonIcon, SunIcon } from './icons';
 
 /**
- * Website theme switch (RULES §10 — app + website match). Uses the same
- * `pixa-theme` localStorage key as the studio, and the same convention:
- * dark is the default, `html.light` flips the tokens. The inline script in
- * layout.tsx applies the stored choice before first paint (no flash).
- *
- * Deliberately stateless: the source of truth is the `light` class on <html>,
- * and the visible icon is chosen by CSS (`[html.light_&]`), so the server and
- * client always render identical markup — no hydration mismatch.
+ * Same `pixa-theme` key as the studio. The html.light class is the source of
+ * truth and CSS picks the icon, so server/client markup always match.
  */
 export function ThemeToggle() {
   function toggle() {

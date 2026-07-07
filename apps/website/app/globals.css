@@ -1,13 +1,6 @@
 @import 'tailwindcss';
 
-/*
- * Tailwind v4 config lives in CSS: @theme, @apply and @custom-variant are Tailwind
- * at-rules processed by @tailwindcss/postcss — not errors (see .vscode/settings.json).
- *
- * Pixa design tokens — mirror of the design spec (Pixa Studio.dc.html §00).
- * Dark is the default theme; `html.light` flips the surface + text tokens.
- * Shared 1:1 with apps/studio so the app and marketing site match (RULES §10).
- */
+/* Pixa tokens (Tailwind v4 CSS config). Dark default; html.light flips. Shared with apps/studio. */
 @theme {
   /* brand — a warm gold gradient */
   --color-brand: #e0a83c;
@@ -15,7 +8,7 @@
   --color-brand-fg: #f0d38a;
   --color-brand-from: #f7cd5a;
   --color-brand-to: #dd9327;
-  /* text placed ON the gold gradient (buttons, badges) — same in both themes */
+  /* text on the gold gradient */
   --color-brand-ink: #1a1206;
 
   /* surfaces (dark defaults) */
@@ -43,7 +36,7 @@
   --font-mono: var(--font-geist-mono), ui-monospace, 'Geist Mono', monospace;
 }
 
-/* Light mode overrides (RULES §10 — same utilities, different values). */
+/* light mode */
 html.light {
   --color-brand: #c98a1f;
   --color-brand-soft: rgb(201 138 31 / 0.14);
@@ -74,7 +67,7 @@ html.light {
   color-scheme: light;
 }
 
-/* Smooth anchor scrolling — but respect users who prefer reduced motion. */
+/* smooth anchors unless reduced motion */
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
@@ -85,16 +78,13 @@ body {
   @apply bg-background text-foreground antialiased;
 }
 
-/*
- * Tailwind v4 preflight leaves buttons with `cursor: default`.
- * Anything clickable should read as clickable — one rule, app-wide.
- */
+/* Tailwind v4 preflight leaves buttons cursor:default */
 button:not(:disabled),
 [role='button']:not(:disabled) {
   cursor: pointer;
 }
 
-/* Reusable brand treatments (kept as tokens, not scattered hex). */
+/* brand treatments */
 .bg-gradient-brand {
   background-image: linear-gradient(135deg, var(--color-brand-from), var(--color-brand-to));
 }

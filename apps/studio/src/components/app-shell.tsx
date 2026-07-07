@@ -13,7 +13,6 @@ const NAV: Array<{
   { to: '/templates', label: 'Templates', Icon: GridIcon },
 ];
 
-/** Icon rail (design §01): logo, nav with tooltips, theme toggle, avatar. */
 export function AppShell({ children }: { children: ReactNode }) {
   const theme = useThemeStore((s) => s.theme);
   const toggle = useThemeStore((s) => s.toggle);

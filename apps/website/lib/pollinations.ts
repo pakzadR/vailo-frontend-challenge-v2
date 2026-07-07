@@ -10,12 +10,7 @@ export interface PollinationsParams {
 
 const BASE = 'https://image.pollinations.ai/prompt';
 
-/**
- * The single place website image URLs are built (mirrors the studio's api/ layer).
- * On the marketing site these render server-side through next/image, so Next's
- * optimizer fetches them from Node — which, unlike a browser fetch, carries no
- * Origin header and is never rejected by Pollinations (README gotcha #1).
- */
+/** The single place image URLs are built. */
 export function pollinationsUrl({
   prompt,
   model = 'flux',
@@ -34,11 +29,8 @@ export function pollinationsUrl({
 }
 
 /**
- * Server-only: fetch a Pollinations image and inline it as a base64 data URI.
- * Runs in a Server Component (Node fetch → no Origin header → never 403'd), so the
- * live-demo strip is genuinely rendered from server-fetched data (RULES §9) and the
- * bytes ship inside the HTML — the image is always visible, never a blank slot.
- * Returns null on timeout/failure so the caller can fall back to a client load.
+ * Server-only fetch → base64 data URI (Node sends no Origin header, so no
+ * 403). Returns null on failure so callers can fall back to a client load.
  */
 export async function fetchImageDataUri(
   params: PollinationsParams,

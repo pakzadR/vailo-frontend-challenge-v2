@@ -5,7 +5,6 @@ import { STUDIO_URL } from '@/lib/site-data';
 export function SiteHero() {
   return (
     <section className="relative overflow-hidden px-6 pb-24 pt-24 text-center sm:px-12 sm:pt-28">
-      {/* decorative glow + grid layers */}
       <div aria-hidden className="pointer-events-none absolute inset-0">
         <div
           className="absolute left-1/2 top-[-200px] h-[640px] w-[1100px] max-w-[130vw] -translate-x-1/2"
@@ -58,7 +57,6 @@ export function SiteHero() {
           </a>
         </div>
 
-        {/* hero visual */}
         <div className="relative mx-auto mt-16 max-w-[1040px] sm:mt-20">
           <div
             aria-hidden
@@ -92,7 +90,6 @@ export function SiteHero() {
             </div>
           </div>
 
-          {/* floating thumbnails */}
           <div className="absolute -right-6 -top-8 hidden size-[150px] rotate-[5deg] overflow-hidden rounded-2xl border border-border shadow-[0_24px_50px_rgb(0_0_0/0.55)] sm:block">
             <PollinationsImage
               prompt="a serene mountain lake at dawn, volumetric mist, cinematic"
