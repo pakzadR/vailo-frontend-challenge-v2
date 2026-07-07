@@ -3,8 +3,7 @@ import { AlertIcon, DownloadIcon, ExpandIcon } from '@/components/icons';
 import { Tooltip } from '@/components/tooltip';
 import { seedGradient } from './gradients';
 
-// Static canvas mock: two loaded images (matching the prefilled prompt),
-// one pending, one failed.
+// Static canvas mock: two loaded, one pending, one failed.
 const MOCK_PROMPT =
   'A bioluminescent jellyfish drifting through a neon cyberpunk city, volumetric fog, cinematic lighting';
 const SEEDS = [128934, 128935];
@@ -56,7 +55,7 @@ export function ResultsCanvas() {
           className="relative mx-auto aspect-square w-full max-w-[620px] flex-1 overflow-hidden rounded-2xl border border-brand/40 shadow-[0_30px_80px_-20px_rgb(0_0_0/0.6)]"
           style={{ maxHeight: 600 }}
         >
-          <MockImage seed={selectedSeed as number} />
+          <MockImage seed={selectedSeed as number} large />
           <span
             aria-hidden
             className="pointer-events-none absolute inset-0 z-20 rounded-2xl ring-1 ring-inset ring-white/10"
@@ -133,13 +132,30 @@ export function ResultsCanvas() {
   );
 }
 
-/** Gradient backdrop + shimmer while loading → image on load → gradient on error. */
-function MockImage({ seed }: { seed: number }) {
+/** Skeleton while loading → image on load → gradient fallback on error. */
+function MockImage({ seed, large = false }: { seed: number; large?: boolean }) {
   const [status, setStatus] = useState<'loading' | 'loaded' | 'error'>('loading');
   return (
     <>
-      <span aria-hidden className="absolute inset-0" style={{ background: seedGradient(seed) }} />
-      {status === 'loading' && <span aria-hidden className="absolute inset-0 animate-shimmer" />}
+      {status === 'loading' && (
+        <span
+          aria-hidden
+          className="absolute inset-0 flex flex-col items-center justify-center gap-3 bg-input"
+        >
+          <span className="absolute inset-0 animate-shimmer" />
+          <span
+            className={`z-10 animate-spin rounded-full border-brand/25 border-t-brand ${
+              large ? 'size-8 border-[3px]' : 'size-5 border-2'
+            }`}
+          />
+          {large && (
+            <span className="z-10 font-mono text-[11px] text-subtle">loading preview…</span>
+          )}
+        </span>
+      )}
+      {status === 'error' && (
+        <span aria-hidden className="absolute inset-0" style={{ background: seedGradient(seed) }} />
+      )}
       {status !== 'error' && (
         <img
           src={urlFor(seed)}
