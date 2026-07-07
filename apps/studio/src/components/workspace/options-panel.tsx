@@ -1,8 +1,14 @@
 import * as Select from '@radix-ui/react-select';
 import * as ToggleGroup from '@radix-ui/react-toggle-group';
 import * as Slider from '@radix-ui/react-slider';
-import { CheckIcon, ChevronDownIcon, InfoIcon, ShuffleIcon, SparkleIcon } from '@/components/icons';
-import { Tooltip } from '@/components/tooltip';
+import {
+  CheckIcon,
+  ChevronDownIcon,
+  InfoIcon,
+  ShuffleIcon,
+  SparkleIcon,
+} from '@/components/ui/icons';
+import { Tooltip } from '@/components/ui/tooltip';
 import {
   ASPECT_DIMENSIONS,
   MODELS,
@@ -10,7 +16,7 @@ import {
   type AspectRatio,
   type GenerationOptions,
   type PixaModel,
-} from '../types';
+} from './data';
 
 interface OptionsPanelProps {
   options: GenerationOptions;

@@ -1,11 +1,10 @@
 import { useState } from 'react';
-import { AlertIcon, DownloadIcon, ExpandIcon } from '@/components/icons';
-import { Tooltip } from '@/components/tooltip';
+import { AlertIcon, DownloadIcon, ExpandIcon } from '@/components/ui/icons';
+import { Tooltip } from '@/components/ui/tooltip';
+import { MOCK_PROMPT } from './data';
 import { seedGradient } from './gradients';
 
 // Static canvas mock: two loaded, one pending, one failed.
-const MOCK_PROMPT =
-  'A bioluminescent jellyfish drifting through a neon cyberpunk city, volumetric fog, cinematic lighting';
 const SEEDS = [128934, 128935];
 const SIZE = 768;
 
