@@ -1,6 +1,6 @@
 import { ArrowRightIcon, PlayIcon } from '@/components/ui/icons';
 import { PollinationsImage } from '@/components/ui/pollinations-image';
-import { STUDIO_URL } from '@/lib/site-data';
+import { STUDIO_URL } from '@/lib/config';
 
 export function SiteHero() {
   return (

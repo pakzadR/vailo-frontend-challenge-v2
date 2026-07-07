@@ -1,21 +1,12 @@
 import { useState } from 'react';
-import type { GenerationOptions } from '../types';
+import { INITIAL_OPTIONS, type GenerationOptions } from './data';
 import { HistoryPanel } from './history-panel';
 import { OptionsPanel } from './options-panel';
 import { ResultsCanvas } from './results-canvas';
 
 // Design-only 3-pane workspace; generate flow comes later.
-const INITIAL: GenerationOptions = {
-  prompt:
-    'A bioluminescent jellyfish drifting through a neon cyberpunk city, volumetric fog, cinematic lighting',
-  model: 'flux',
-  aspect: '1:1',
-  seed: 128934,
-  count: 4,
-};
-
 export function WorkspaceView() {
-  const [options, setOptions] = useState<GenerationOptions>(INITIAL);
+  const [options, setOptions] = useState<GenerationOptions>(INITIAL_OPTIONS);
 
   return (
     <div className="flex h-full flex-col overflow-y-auto lg:flex-row lg:overflow-hidden">

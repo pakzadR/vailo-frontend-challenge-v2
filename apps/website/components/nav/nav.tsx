@@ -1,6 +1,7 @@
 import { SparkleIcon } from '@/components/ui/icons';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
-import { NAV_LINKS, STUDIO_URL } from '@/lib/site-data';
+import { STUDIO_URL } from '@/lib/config';
+import { NAV_LINKS } from './data';
 
 export function SiteNav() {
   return (

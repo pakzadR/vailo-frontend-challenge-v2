@@ -1,7 +1,7 @@
 import { createRootRoute, Outlet } from '@tanstack/react-router';
 import { TanStackRouterDevtools } from '@tanstack/router-devtools';
-import { AppShell } from '@/components/app-shell';
-import { TooltipProvider } from '@/components/tooltip';
+import { AppShell } from '@/components/ui/app-shell';
+import { TooltipProvider } from '@/components/ui/tooltip';
 
 export const Route = createRootRoute({
   component: RootLayout,

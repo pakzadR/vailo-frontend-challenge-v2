@@ -1,7 +1,7 @@
 import type { ComponentType, ReactNode } from 'react';
 import { Link } from '@tanstack/react-router';
-import { GridIcon, MoonIcon, SparkleIcon, SunIcon, WandIcon } from '@/components/icons';
-import { Tooltip } from '@/components/tooltip';
+import { GridIcon, MoonIcon, SparkleIcon, SunIcon, WandIcon } from './icons';
+import { Tooltip } from './tooltip';
 import { useThemeStore } from '@/lib/theme-store';
 
 const NAV: Array<{

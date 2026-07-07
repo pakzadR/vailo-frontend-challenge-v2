@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import { ArrowRightIcon } from '@/components/ui/icons';
 import { PollinationsImage } from '@/components/ui/pollinations-image';
-import { STUDIO_URL, TEMPLATE_FILTERS, TEMPLATES, type TemplateFilter } from '@/lib/site-data';
+import { STUDIO_URL } from '@/lib/config';
+import { TEMPLATE_FILTERS, TEMPLATES, type TemplateFilter } from './data';
 
 /** Client component — the category filter is stateful. */
 export function TemplatesSection() {

@@ -1,7 +1,7 @@
 import { FeatureIcon } from '@/components/ui/icons';
-import { FEATURES } from '@/lib/site-data';
+import { HIGHLIGHTS } from './data';
 
-export function FeaturesSection() {
+export function HighlightsSection() {
   return (
     <section
       id="features"
@@ -17,20 +17,22 @@ export function FeaturesSection() {
       </div>
 
       <div className="mx-auto grid max-w-[1140px] gap-5 md:grid-cols-3">
-        {FEATURES.map((feature) => (
+        {HIGHLIGHTS.map((highlight) => (
           <article
-            key={feature.title}
+            key={highlight.title}
             className="rounded-2xl border border-border bg-elevated p-7 transition-colors hover:border-brand/30"
           >
             <div
               className={`mb-[18px] grid size-11 place-items-center rounded-xl ${
-                feature.accent === 'brand' ? 'bg-brand-soft text-brand-fg' : 'bg-info/15 text-info'
+                highlight.accent === 'brand'
+                  ? 'bg-brand-soft text-brand-fg'
+                  : 'bg-info/15 text-info'
               }`}
             >
-              <FeatureIcon name={feature.icon} size={21} />
+              <FeatureIcon name={highlight.icon} size={21} />
             </div>
-            <h3 className="mb-2 text-[17px] font-semibold">{feature.title}</h3>
-            <p className="text-[13.5px] leading-relaxed text-muted">{feature.body}</p>
+            <h3 className="mb-2 text-[17px] font-semibold">{highlight.title}</h3>
+            <p className="text-[13.5px] leading-relaxed text-muted">{highlight.body}</p>
           </article>
         ))}
       </div>

@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { PollinationsImage } from '@/components/ui/pollinations-image';
 import { fetchImageDataUri } from '@/lib/pollinations';
-import { DEMO_IMAGES } from '@/lib/site-data';
+import { DEMO_IMAGES } from './data';
 
 /**
  * Async RSC: images are fetched server-side and inlined as data URIs; a
