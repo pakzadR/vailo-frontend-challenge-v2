@@ -51,7 +51,7 @@ export function HistoryPanel() {
         {MOCK_ENTRIES.map((entry) => (
           <li key={entry.id}>
             <div
-              className={`flex w-full items-center gap-2.5 rounded-[11px] border p-2 transition-colors ${
+              className={`group flex w-full items-center gap-2.5 rounded-[11px] border p-2 transition-colors ${
                 entry.active
                   ? 'border-brand/30 bg-brand-soft/50'
                   : 'border-hairline hover:border-border'
@@ -72,7 +72,7 @@ export function HistoryPanel() {
                 <button
                   type="button"
                   aria-label="Remove from history"
-                  className="grid size-[26px] shrink-0 place-items-center rounded-[7px] border border-transparent text-subtle transition-colors hover:border-border hover:text-error"
+                  className="grid size-[26px] shrink-0 place-items-center rounded-[7px] border border-transparent text-subtle opacity-0 transition group-focus-within:opacity-100 group-hover:opacity-100 hover:border-border hover:text-error focus-visible:opacity-100 [@media(hover:none)]:opacity-100"
                 >
                   <TrashIcon />
                 </button>

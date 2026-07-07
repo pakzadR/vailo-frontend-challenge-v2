@@ -23,6 +23,7 @@ export function OptionsPanel({ options, onChange }: OptionsPanelProps) {
   return (
     <section className="flex shrink-0 flex-col border-b border-hairline bg-surface lg:w-[356px] lg:border-b-0 lg:border-r">
       <header className="border-b border-hairline px-5 py-5">
+        <p className="mb-1 font-mono text-[11px] tracking-widest text-brand">CREATE</p>
         <h1 className="text-base font-semibold tracking-tight">Workspace</h1>
         <p className="mt-0.5 text-[12.5px] text-subtle">
           Describe an image, tune the options, generate.
@@ -162,7 +163,7 @@ export function OptionsPanel({ options, onChange }: OptionsPanelProps) {
                 type="button"
                 aria-label="Randomize seed"
                 onClick={() => onChange({ seed: randomSeed() })}
-                className="grid size-10 shrink-0 place-items-center rounded-[10px] border border-border bg-input text-muted transition-colors hover:text-foreground"
+                className="grid size-10 shrink-0 place-items-center rounded-[10px] border border-border bg-input text-muted transition-colors hover:border-brand/40 hover:text-brand-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
               >
                 <ShuffleIcon />
               </button>
@@ -201,7 +202,7 @@ export function OptionsPanel({ options, onChange }: OptionsPanelProps) {
       <footer className="border-t border-hairline p-4">
         <button
           type="button"
-          className="flex w-full items-center justify-center gap-2 rounded-[11px] bg-gradient-brand py-3 text-sm font-semibold text-brand-ink shadow-[0_6px_24px_rgb(224_168_60/0.35)] transition-transform hover:scale-[1.01]"
+          className="flex w-full items-center justify-center gap-2 rounded-[11px] bg-gradient-brand py-3 text-sm font-semibold text-brand-ink shadow-[0_6px_24px_rgb(224_168_60/0.35)] transition-transform hover:scale-[1.01] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 active:scale-[0.99] motion-reduce:transform-none"
         >
           <SparkleIcon size={16} />
           Generate {options.count} {options.count === 1 ? 'image' : 'images'}
