@@ -1,7 +1,9 @@
 import type { ComponentType, ReactNode } from 'react';
+import { useIsFetching } from '@tanstack/react-query';
 import { Link } from '@tanstack/react-router';
 import { GridIcon, MoonIcon, SparkleIcon, SunIcon, WandIcon } from './icons';
 import { Tooltip } from './tooltip';
+import { generationKeys } from '@/features/generation/hooks/keys-hooks';
 import { useThemeStore } from '@/lib/theme-store';
 
 const NAV: Array<{
@@ -16,6 +18,7 @@ const NAV: Array<{
 export function AppShell({ children }: { children: ReactNode }) {
   const theme = useThemeStore((s) => s.theme);
   const toggle = useThemeStore((s) => s.toggle);
+  const isGenerating = useIsFetching({ queryKey: generationKeys.all }) > 0;
 
   return (
     <div className="flex h-full">
@@ -29,7 +32,7 @@ export function AppShell({ children }: { children: ReactNode }) {
             <Tooltip key={to} label={label} side="right">
               <Link
                 to={to}
-                className="grid size-10 place-items-center rounded-[10px] transition-colors"
+                className="relative grid size-10 place-items-center rounded-[10px] transition-colors"
                 activeProps={{
                   className: 'border border-brand/35 bg-brand-soft text-brand-fg',
                 }}
@@ -38,6 +41,12 @@ export function AppShell({ children }: { children: ReactNode }) {
                 }}
               >
                 <Icon size={19} />
+                {to === '/workspace' && isGenerating && (
+                  <span
+                    aria-hidden
+                    className="absolute right-1.5 top-1.5 size-1.5 animate-pulse rounded-full bg-brand motion-reduce:animate-none"
+                  />
+                )}
                 <span className="sr-only">{label}</span>
               </Link>
             </Tooltip>

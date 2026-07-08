@@ -1,20 +1,29 @@
 import { useMemo, useState } from 'react';
 import { Link } from '@tanstack/react-router';
-import { ArrowRightIcon, SearchIcon } from '@/components/ui/icons';
-import { previewUrl, TEMPLATES, type Category, type TemplateCard } from './data';
+import { AlertIcon, ArrowRightIcon, RetryIcon, SearchIcon } from '@/components/ui/icons';
+import { useTemplatePreview, useTemplates } from '../hooks/use-templates-hooks';
+import type { Template, TemplateCategory } from '../types/templates-types';
 
-// Design-only gallery: static deterministic previews, no data layer yet.
-
-type Filter = 'All' | Category;
+type Filter = 'All' | TemplateCategory;
 
 export function TemplatesView() {
+  const { data: templates, isPending, isError, refetch } = useTemplates();
   const [filter, setFilter] = useState<Filter>('All');
+  const [search, setSearch] = useState('');
 
   const filters = useMemo<Filter[]>(
-    () => ['All', ...new Set(TEMPLATES.map((c) => c.category))],
-    [],
+    () => ['All', ...new Set((templates ?? []).map((t) => t.category))],
+    [templates],
   );
-  const visible = filter === 'All' ? TEMPLATES : TEMPLATES.filter((c) => c.category === filter);
+
+  const visible = useMemo(() => {
+    const term = search.trim().toLowerCase();
+    return (templates ?? []).filter(
+      (t) =>
+        (filter === 'All' || t.category === filter) &&
+        (term === '' || t.prompt.toLowerCase().includes(term)),
+    );
+  }, [templates, filter, search]);
 
   return (
     <div className="flex h-full flex-col">
@@ -31,6 +40,8 @@ export function TemplatesView() {
             <SearchIcon />
             <input
               type="search"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
               placeholder="Search prompts…"
               aria-label="Search templates"
               className="w-full bg-transparent text-[13px] text-foreground placeholder:text-subtle focus:outline-none"
@@ -61,17 +72,40 @@ export function TemplatesView() {
                 {f}
               </button>
             ))}
-            <span className="ml-auto hidden font-mono text-[11px] text-subtle sm:block">
-              {visible.length} {visible.length === 1 ? 'template' : 'templates'}
-            </span>
+            {!isPending && !isError && (
+              <span className="ml-auto hidden font-mono text-[11px] text-subtle sm:block">
+                {visible.length} {visible.length === 1 ? 'template' : 'templates'}
+              </span>
+            )}
           </div>
         </div>
 
         <div className="mx-auto max-w-[1400px] px-4 py-5 sm:px-6 lg:px-8">
-          {visible.length === 0 ? (
+          {isPending ? (
+            <TemplatesSkeleton />
+          ) : isError ? (
+            <div className="flex flex-col items-center justify-center gap-3 py-20 text-center">
+              <div className="grid size-11 place-items-center rounded-full bg-error/15 text-error">
+                <AlertIcon />
+              </div>
+              <p className="text-[13px] text-muted">Couldn’t load the templates.</p>
+              <button
+                type="button"
+                onClick={() => void refetch()}
+                className="flex items-center gap-1.5 rounded-[9px] border border-border bg-elevated px-3.5 py-2 text-xs font-medium text-foreground transition-colors hover:border-brand/40"
+              >
+                <RetryIcon />
+                Retry
+              </button>
+            </div>
+          ) : visible.length === 0 ? (
             <div className="flex flex-col items-center justify-center gap-2 py-20 text-center">
               <SearchIcon size={20} className="text-subtle" />
-              <p className="text-[13px] text-subtle">No templates in this category yet.</p>
+              <p className="text-[13px] text-subtle">
+                {search.trim()
+                  ? 'No templates match your search.'
+                  : 'No templates in this category yet.'}
+              </p>
             </div>
           ) : (
             <div className="grid grid-cols-1 gap-4 min-[480px]:grid-cols-2 md:grid-cols-3 md:gap-5 xl:grid-cols-4">
@@ -86,34 +120,49 @@ export function TemplatesView() {
   );
 }
 
-/** Skeleton while loading → image on load → gradient fallback on error. */
-function TemplateCardItem({ card }: { card: TemplateCard }) {
-  const [status, setStatus] = useState<'loading' | 'loaded' | 'error'>('loading');
+function TemplatesSkeleton() {
+  return (
+    <div
+      aria-hidden
+      className="grid grid-cols-1 gap-4 min-[480px]:grid-cols-2 md:grid-cols-3 md:gap-5 xl:grid-cols-4"
+    >
+      {Array.from({ length: 8 }, (_, i) => (
+        <div
+          key={i}
+          className="relative aspect-square overflow-hidden rounded-2xl border border-border bg-input"
+        >
+          <div className="absolute inset-0 animate-shimmer" />
+        </div>
+      ))}
+    </div>
+  );
+}
+
+/** Preview via cached query: revisits render instantly, gradient covers errors. */
+function TemplateCardItem({ card }: { card: Template }) {
+  const preview = useTemplatePreview(card);
 
   return (
     <article className="group relative aspect-square overflow-hidden rounded-2xl border border-border transition-all duration-300 focus-within:border-brand/50 hover:-translate-y-1 hover:border-brand/50 hover:shadow-[0_24px_50px_-12px_rgb(0_0_0/0.65),0_0_24px_rgb(224_168_60/0.08)] motion-reduce:hover:translate-y-0">
-      {status === 'loading' && (
+      {preview.status === 'pending' && (
         <div aria-hidden className="absolute inset-0 grid place-items-center bg-input">
           <div className="absolute inset-0 animate-shimmer" />
           <div className="z-10 size-6 animate-spin rounded-full border-2 border-brand/25 border-t-brand" />
         </div>
       )}
 
-      {status === 'error' && (
+      {preview.status === 'error' && (
         <span aria-hidden className="absolute inset-0" style={{ background: card.gradient }} />
       )}
 
-      <img
-        src={previewUrl(card.label, card.seed)}
-        alt={card.label}
-        loading="lazy"
-        decoding="async"
-        onLoad={() => setStatus('loaded')}
-        onError={() => setStatus('error')}
-        className={`absolute inset-0 size-full object-cover transition duration-700 group-hover:scale-[1.03] motion-reduce:group-hover:scale-100 ${
-          status === 'loaded' ? 'opacity-100' : 'opacity-0'
-        }`}
-      />
+      {preview.status === 'success' && (
+        <img
+          src={preview.data}
+          alt={card.prompt}
+          decoding="async"
+          className="absolute inset-0 size-full object-cover transition duration-700 group-hover:scale-[1.03] motion-reduce:group-hover:scale-100"
+        />
+      )}
 
       <span
         aria-hidden
@@ -124,14 +173,20 @@ function TemplateCardItem({ card }: { card: TemplateCard }) {
         {card.model} · {card.category}
       </span>
 
-      {status !== 'loading' && (
+      {preview.status !== 'pending' && (
         <div className="absolute inset-0 z-10 flex flex-col items-stretch justify-end bg-[linear-gradient(0deg,rgba(0,0,0,0.8),rgba(0,0,0,0.25)_38%,transparent_60%)] p-3.5">
           <div className="flex translate-y-[41px] flex-col items-stretch transition-transform duration-300 group-focus-within:translate-y-0 group-hover:translate-y-0 motion-reduce:transition-none [@media(hover:none)]:translate-y-0">
             <p className="mb-2.5 line-clamp-2 text-left text-xs leading-snug text-white/95 [text-shadow:0_1px_8px_rgb(0_0_0/0.6)]">
-              {card.label}
+              {card.prompt}
             </p>
             <Link
               to="/workspace"
+              search={{
+                prompt: card.prompt,
+                model: card.model,
+                aspect: card.aspect,
+                seed: card.seed,
+              }}
               className="flex min-h-9 items-center justify-center gap-1.5 rounded-[9px] bg-gradient-brand py-2 text-[12.5px] font-semibold text-brand-ink opacity-0 shadow-[0_4px_16px_rgb(224_168_60/0.35)] transition-opacity duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 group-focus-within:opacity-100 group-hover:opacity-100 [@media(hover:none)]:opacity-100"
             >
               <ArrowRightIcon size={13} />

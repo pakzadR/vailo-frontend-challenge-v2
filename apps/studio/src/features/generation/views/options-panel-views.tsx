@@ -16,14 +16,16 @@ import {
   type AspectRatio,
   type GenerationOptions,
   type PixaModel,
-} from './data';
+} from '../types/generation-types';
 
 interface OptionsPanelProps {
   options: GenerationOptions;
   onChange: (patch: Partial<GenerationOptions>) => void;
+  onGenerate: () => void;
+  isGenerating: boolean;
 }
 
-export function OptionsPanel({ options, onChange }: OptionsPanelProps) {
+export function OptionsPanel({ options, onChange, onGenerate, isGenerating }: OptionsPanelProps) {
   const dims = ASPECT_DIMENSIONS[options.aspect];
 
   return (
@@ -49,8 +51,11 @@ export function OptionsPanel({ options, onChange }: OptionsPanelProps) {
             value={options.prompt}
             onChange={(e) => onChange({ prompt: e.target.value })}
             onKeyDown={(e) => {
-              // Enter is reserved for generate; Shift+Enter inserts a newline
-              if (e.key === 'Enter' && !e.shiftKey) e.preventDefault();
+              // Enter generates; Shift+Enter inserts a newline
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                onGenerate();
+              }
             }}
             placeholder="A bioluminescent jellyfish drifting through a neon cyberpunk city…"
             rows={4}
@@ -208,10 +213,21 @@ export function OptionsPanel({ options, onChange }: OptionsPanelProps) {
       <footer className="border-t border-hairline p-4">
         <button
           type="button"
-          className="flex w-full items-center justify-center gap-2 rounded-[11px] bg-gradient-brand py-3 text-sm font-semibold text-brand-ink shadow-[0_6px_24px_rgb(224_168_60/0.35)] transition-transform hover:scale-[1.01] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 active:scale-[0.99] motion-reduce:transform-none"
+          onClick={onGenerate}
+          disabled={!options.prompt.trim()}
+          className="flex w-full items-center justify-center gap-2 rounded-[11px] bg-gradient-brand py-3 text-sm font-semibold text-brand-ink shadow-[0_6px_24px_rgb(224_168_60/0.35)] transition-transform hover:scale-[1.01] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 active:scale-[0.99] disabled:opacity-45 disabled:shadow-none disabled:hover:scale-100 motion-reduce:transform-none"
         >
-          <SparkleIcon size={16} />
-          Generate {options.count} {options.count === 1 ? 'image' : 'images'}
+          {isGenerating ? (
+            <>
+              <span className="size-4 animate-spin rounded-full border-2 border-brand-ink/30 border-t-brand-ink" />
+              Generating…
+            </>
+          ) : (
+            <>
+              <SparkleIcon size={16} />
+              Generate {options.count} {options.count === 1 ? 'image' : 'images'}
+            </>
+          )}
         </button>
       </footer>
     </section>
