@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { ArrowRightIcon } from '@/components/ui/icons';
 import { PollinationsImage } from '@/components/ui/pollinations-image';
-import { STUDIO_URL } from '@/lib/config';
+import { STUDIO_TEMPLATES_URL, studioWorkspaceUrl } from '@/lib/config';
 import { TEMPLATE_FILTERS, TEMPLATES, type TemplateFilter } from './data';
 
 /** Client component — the category filter is stateful. */
@@ -54,23 +54,25 @@ export function TemplatesSection() {
             key={tpl.id}
             className="group relative aspect-square overflow-hidden rounded-2xl border border-border"
           >
+            {/* same url the studio regenerates — the preview IS the handoff result */}
             <PollinationsImage
               prompt={tpl.prompt}
+              model={tpl.model}
               seed={tpl.seed}
-              width={512}
-              height={512}
+              width={1024}
+              height={1024}
               sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 290px"
-              alt={tpl.label}
+              alt={tpl.prompt}
               gradient={tpl.gradient}
             />
             <div className="absolute inset-0 z-10 flex flex-col items-start justify-end bg-[linear-gradient(0deg,rgba(0,0,0,0.75),transparent_55%)] p-3.5">
               {/* rests shifted down by the CTA height; hover/focus/touch reveals it */}
               <div className="flex translate-y-[39px] flex-col items-start transition-transform duration-300 group-focus-within:translate-y-0 group-hover:translate-y-0 motion-reduce:transition-none [@media(hover:none)]:translate-y-0">
                 <p className="mb-2.5 line-clamp-2 text-left text-[11.5px] leading-snug text-white/95">
-                  {tpl.label}
+                  {tpl.prompt}
                 </p>
                 <a
-                  href={STUDIO_URL}
+                  href={studioWorkspaceUrl(tpl)}
                   className="inline-flex items-center gap-1.5 rounded-full bg-gradient-brand px-3 py-1.5 text-[11.5px] font-semibold text-brand-ink opacity-0 transition-opacity duration-300 group-focus-within:opacity-100 group-hover:opacity-100 [@media(hover:none)]:opacity-100"
                 >
                   <ArrowRightIcon size={12} />
@@ -88,7 +90,7 @@ export function TemplatesSection() {
 
       <div className="mt-9 text-center">
         <a
-          href={STUDIO_URL}
+          href={STUDIO_TEMPLATES_URL}
           className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-foreground/[0.04]"
         >
           Browse all templates
